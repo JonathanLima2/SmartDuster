@@ -92,20 +92,11 @@ bool Aspirador::writeFileValue(string file, string value) {
 }
 
 string Aspirador::getStatus() {
-    try{
-        string status = this->readFileValue("status");
-        RGS0 = 1;
-        sscanf(status.c_str(), "%*s %*s %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s", &RGS0, &v_1, &v_2, &SB3, &AA4, &AV5, &RE6, &REFT7, &RD8, &RDFT9);
-        //cout<<"tmp"<<RGS0<<v_1<<v_2<<SB3<<AA4<<AV5<<RE6<<REFT7<<RD8<<RDFT9<<endl;
-        if(RGS0 == 0){
-            return status;
-        }else{
-            throw error;
-        }
-    }
-    catch(...){
-        return RGS0;
-    }
+    string status = this->readFileValue("status");
+    RGS0 = 1;
+    sscanf(status.c_str(), "%*s %*s %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s %i %*s", &RGS0, &v_1, &v_2, &SB3, &AA4, &AV5, &RE6, &REFT7, &RD8, &RDFT9);
+    //cout<<"tmp"<<RGS0<<v_1<<v_2<<SB3<<AA4<<AV5<<RE6<<REFT7<<RD8<<RDFT9<<endl;
+    return status;    
 }
 
 
@@ -123,8 +114,8 @@ int Aspirador::getStatusTracionaRoda(int iRoda) {
         }
     }
     catch(...){
-        
-        return RGS0;
+        cout<<"erro ao buscar o status de tração da roda. Erro: RGS-"<<RGS0<<endl;
+        return 0xff;
     }
 }
 
@@ -154,7 +145,8 @@ int Aspirador::setRoda(int iRoda, int iTraciona, int iVelocidade){
         }
     }
     catch(...){
-        return RGS0;
+        cout<<"erro ao inserir dados na roda. Erro: RGS-"<<RGS0<<endl;
+        return 0xff;
     }
 }
 
@@ -172,7 +164,8 @@ int Aspirador::getStatusVelocidadeRoda(int iRoda){
         }
     }
     catch(...){
-        return RGS0;
+        cout<<"erro ao buscar o status da velocidade. Erro: RGS-"<<RGS0<<endl;
+        return 0xff;
     }
 }
 
